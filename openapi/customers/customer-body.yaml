@@ -1,0 +1,5 @@
+description: Customer properties
+content:
+  CustomerBody:
+    schema:
+      $ref: ./customer-content.yaml

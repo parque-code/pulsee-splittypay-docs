@@ -1,0 +1,10 @@
+title: InvoiceContent
+type: object
+properties:
+  schema:
+    type: object
+    properties:
+      amount:
+        type: string
+      dueDate:
+        type: string

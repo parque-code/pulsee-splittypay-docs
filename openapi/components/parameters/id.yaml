@@ -1,0 +1,9 @@
+name: id
+in: path
+description: Specify query
+required: true
+schema:
+  type: object
+  properties:
+    linkedTo:
+      type: string

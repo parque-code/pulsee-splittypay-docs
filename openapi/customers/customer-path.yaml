@@ -1,0 +1,78 @@
+/customers:
+  post:
+    summary: Create a Customer
+    description: It will create a Customer with all properties specified in the body then it return as response the Customer itself with the assigned url, uri and relative resource information.
+    operationId: createCustomer
+    tags:
+      - Customer
+    security:
+      - OAuth2: [admin]
+    requestBody:
+      $ref: ./customer-body.yaml
+    responses:
+      '201':
+        description: Customer created
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: ../components/schemas/resource.yaml
+                - $ref: ./customer-content.yaml
+                - $ref: ./customer-links.yaml
+
+/customers/{id}:
+  get:
+    summary: Read Customer
+    description: It returns the Customer which uri is specified in path parameters.
+    operationId: readCustomer
+    tags:
+      - Customer
+    parameters:
+      - $ref: ../components/parameters/id.yaml
+    responses:
+      '200':
+        description: Customer found
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: ../components/schemas/resource.yaml
+                - $ref: ./customer-content.yaml
+                - $ref: ./customer-links.yaml
+      '404':
+        $ref: ../components/responses/404.yaml
+  delete:
+    summary: Delete Customer
+    description: It deletes the Customer which uri is specified in path parameters.
+    operationId: deleteCustomer
+    tags:
+      - Customer
+    parameters:
+      - $ref: ../components/parameters/id.yaml
+    responses:
+      '204':
+        description: Customer deleted
+      '404':
+        $ref: ../components/responses/404.yaml
+  put:
+    summary: Update Customer
+    description: It will update properties specified in the body for the Customer which uri is specified in path.
+    operationId: updateCustomer
+    tags:
+      - Customer
+    parameters:
+      - $ref: ../components/parameters/id.yaml
+    requestBody:
+      $ref: ./customer-body.yaml
+    responses:
+      '201':
+        description: Customer updated
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: ../components/schemas/resource.yaml
+                - $ref: ./customer-content.yaml
+                - $ref: ./customer-links.yaml
+      '404':
+        $ref: ../components/responses/404.yaml

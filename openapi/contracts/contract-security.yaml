@@ -1,0 +1,5 @@
+security:
+  - contracts_auth:
+      - write:contracts
+      - read:contracts
+      - admin

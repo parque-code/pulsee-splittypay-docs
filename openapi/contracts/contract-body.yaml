@@ -1,0 +1,5 @@
+description: Contract properties
+content:
+  ContractBody:
+    schema:
+      $ref: ./contract-content.yaml

@@ -1,0 +1,21 @@
+in: query
+description: Specify query
+required: false
+schema:
+  type: object
+  properties:
+    schema:
+      type: object
+      properties:
+        property:
+          type: string
+    linkedTo:
+      type: array
+      items:
+        type: object
+        properties:
+          url:
+            type: string
+            format: uri
+          type:
+            type: string

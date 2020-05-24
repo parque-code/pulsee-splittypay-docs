@@ -1,0 +1,164 @@
+openapi: 3.0.0
+servers:
+  - url: rental.tohire.io
+info:
+  title: Contracts
+  description: This service handles Contract links.
+  contact:
+    name: Giovanni Marino
+  version: 20.5.22
+tags:
+  - name: Contract
+paths:
+  /contracts:
+    post:
+      summary: Create a Contract
+      description: 'It will create a Contract with all properties specified in the body then it return as response the Rental itself with the assigned url, uri and relative resource information.'
+      operationId: createContract
+      tags:
+        - Contract
+      requestBody:
+        $ref: ../contracts/contract-body.yaml
+      responses:
+        '201':
+          description: Contract created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: ../components/schemas/resource.yaml
+                  - $ref: ./contract-content.yaml
+                  - $ref: ./contract-links.yaml
+
+    get:
+      summary: Query Contracts
+      description: It will query Contracts in according to all parameters specified in query string.
+      operationId: queryContracts
+      tags:
+        - Contract
+      responses:
+        '200':
+          description: Contracts retrived
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: ../components/schemas/resource.yaml
+                    - $ref: ./contract-content.yaml
+                    - $ref: ./contract-links.yaml
+        '404':
+          $ref: ../components/responses/404.yaml
+  
+  /contracts/{id}:
+    get:
+      summary: Read Contract
+      description: Read Contract
+      operationId: readContract
+      tags:
+        - Contract
+      parameters:
+        - $ref: ../components/parameters/id.yaml
+      responses:
+        '200':
+          description: Contract found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: ../components/schemas/resource.yaml
+                  - $ref: ./contract-content.yaml
+                  - $ref: ./contract-links.yaml
+        '404':
+          $ref: ../components/responses/404.yaml
+    delete:
+      summary: Delete Contract
+      description: It will delete Contract specified in path.
+      operationId: deleteContract
+      tags:
+        - Contract
+      parameters:
+        - $ref: ../components/parameters/id.yaml
+      responses:
+        '204':
+          description: Contract deleted
+        '404':
+          $ref: ../components/responses/404.yaml
+    put:
+      summary: Update Contract
+      description: It will update properties specified in the body for the Contract which uri is specified in path.
+      operationId: updateContract
+      tags:
+        - Contract
+      parameters:
+        - $ref: ../components/parameters/id.yaml
+      requestBody:
+        $ref: ./contract-body.yaml
+      responses:
+        '201':
+          description: Contract updated
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: ../components/schemas/resource.yaml
+                  - $ref: ./contract-content.yaml
+                  - $ref: ./contract-links.yaml
+        '404':
+          $ref: ../components/responses/404.yaml
+  
+  /contracts/batch:
+    post:
+      summary: Create a batch of Contracts
+      description: It will create a batch of Contract with all properties specified in the body then it return as response the batch of Contracts themselves with the assigned key. If an error occurs during some operation the entire batch operations all rollback and server will response with the relative status code. (Create all or nothing)
+      operationId: batchCreateContract
+      tags:
+        - Contract
+      requestBody:
+        $ref: ./contract-body.yaml
+      responses:
+        '201':
+          description: Contract created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: ../components/schemas/resource.yaml
+                  - $ref: ./contract-content.yaml
+                  - $ref: ./contract-links.yaml
+    delete:
+      summary: Delete a batch of Contracts
+      description: It deletes Contracts in according to all parameters specified in query string.  If an error occurs during some operation the entire batch operations all rollback and server will response with the relative status code. (Delete all or nothing)
+      operationId: batchDeleteContract
+      tags:
+        - Contract
+      parameters:
+        - $ref: ../components/parameters/query.yaml
+      requestBody:
+        $ref: ./contract-body.yaml
+      responses:
+        '200':
+          description: Contracts retrived
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: ../components/schemas/resource.yaml
+                    - $ref: ./contract-content.yaml
+                    - $ref: ./contract-links.yaml
+        '404':
+          $ref: ../components/responses/404.yaml
+
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://example.com/api/oauth/dialog
+          scopes:
+            user: user permission
+            company: company permission

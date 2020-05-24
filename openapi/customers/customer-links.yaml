@@ -1,0 +1,9 @@
+title: CustomerLinks
+type: object
+properties:
+  links:
+    type: array
+    items:
+      allOf:
+        - $ref: ../components/schemas/resource.yaml
+        - $ref: ../contracts/contract-content.yaml

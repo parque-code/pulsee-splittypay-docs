@@ -1,0 +1,27 @@
+title: Resource
+type: object
+properties:
+  url:
+    type: string
+    format: url
+  key:
+    title: Key
+    type: object
+    properties:
+      bid:
+        type: string
+        format: uuid
+      uri:
+        type: string
+        format: uuid
+      type:
+        type: string
+  hid:
+    type: string
+    example: R-1
+  createdAt:
+    type: string
+    format: unix-timestamp
+  updatedAt:
+    type: string
+    format: unix-timestamp

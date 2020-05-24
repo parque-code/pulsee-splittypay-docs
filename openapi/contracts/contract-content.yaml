@@ -1,0 +1,8 @@
+title: ContractContent
+type: object
+properties:
+  schema:
+    type: object
+    properties:
+      reference:
+        type: string

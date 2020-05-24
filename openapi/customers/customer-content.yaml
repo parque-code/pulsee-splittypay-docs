@@ -1,0 +1,18 @@
+title: CustomerContent
+type: object
+properties:
+  schema:
+    type: object
+    properties:
+      firstName:
+        type: string
+        example: Joe
+      lastName:
+        type: string
+        example: Doe
+      email:
+        type: string
+        format: email
+        example: john.doe@mail.com
+      stripeId:
+        type: string

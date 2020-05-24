@@ -10,3 +10,7 @@ referenceDocs:
     colors:
       primary:
         main: "#32329f"
+    sidebar:
+      backgroundColor: "#1e0d53"
+      textColor: "#cbcbcb"
+

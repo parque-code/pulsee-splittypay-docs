@@ -1,0 +1,99 @@
+openapi: 3.0.0
+servers:
+  - url: pulsee.splittypay.it
+info:
+  title: Invoices
+  description: This service handles Invoices.
+  contact:
+    name: Giovanni Marino
+  version: 20.5.22
+tags:
+  - name: Invoice
+paths:
+  /invoices:
+    post:
+      summary: Create a Invoice
+      description: 'It will create a Invoice with all properties specified in the body then it return as response the Invoice itself with the assigned url, uri and relative resource information.'
+      operationId: createInvoice
+      tags:
+        - Invoice
+      requestBody:
+        $ref: ../invoices/invoice-body.yaml
+      responses:
+        '201':
+          description: Invoice created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: ../components/schemas/resource.yaml
+                  - $ref: ./invoice-content.yaml
+                  - $ref: ./invoice-links.yaml
+  
+  /invoices/{id}:
+    get:
+      summary: Read Invoice
+      description: It returns the Invoice which uri is specified in path parameters.
+      operationId: readInvoice
+      tags:
+        - Invoice
+      parameters:
+        - $ref: ../components/parameters/id.yaml
+      responses:
+        '200':  
+          description: Invoice found 
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: ../components/schemas/resource.yaml
+                  - $ref: ./invoice-content.yaml
+                  - $ref: ./invoice-links.yaml
+        '404':
+          $ref: ../components/responses/404.yaml
+    delete:
+      summary: Delete Invoice
+      description: It deletes the Invoice which uri is specified in path parameters.
+      operationId: deleteInvoice
+      tags:
+        - Invoice
+      parameters:
+        - $ref: ../components/parameters/id.yaml
+      responses:
+        '204':
+          description: Invoice deleted
+        '404':
+          $ref: ../components/responses/404.yaml
+    put:
+      summary: Update Invoice
+      description: It will update properties specified in the body for the Invoice which uri is specified in path.
+      operationId: updateInvoice
+      tags:
+        - Invoice
+      parameters:
+        - $ref: ../components/parameters/id.yaml
+      requestBody:
+        $ref: ../invoices/invoice-body.yaml
+      responses:
+        '201':
+          description: Invoice updated
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: ../components/schemas/resource.yaml
+                  - $ref: ./invoice-content.yaml
+                  - $ref: ./invoice-links.yaml
+        '404':
+          $ref: ../components/responses/404.yaml
+
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://example.com/api/oauth/dialog
+          scopes:
+            user: user permission
+            company: company permission

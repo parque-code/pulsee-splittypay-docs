@@ -1,0 +1,10 @@
+securitySchemes:
+  OAuth2:
+    type: oauth2
+    flows:
+      implicit:
+        authorizationUrl: https://example.com/api/oauth/dialog
+        scopes:
+          write:customers: modify customers in your account
+          read:customers: read your customers
+          admin: admin permission

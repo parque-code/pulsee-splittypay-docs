@@ -1,0 +1,5 @@
+security:
+  - customers_auth:
+    - write:customers
+    - read:customers
+    - admin

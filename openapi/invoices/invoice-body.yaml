@@ -1,0 +1,5 @@
+description: Invoice properties
+content:
+  InvoiceBody:
+    schema:
+      $ref: ./invoice-content.yaml

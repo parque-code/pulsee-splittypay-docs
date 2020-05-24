@@ -1,84 +1,65 @@
-openapi: 3.0.2
+openapi: 3.0.0
 info:
-  version: 1.0.0
-  title: Example.com
-  termsOfService: 'https://example.com/terms/'
+  version: v20.5.25
+  title: SplittyPay Integration
   contact:
-    email: contact@example.com
-    url: 'http://example.com/contact'
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    email: support@parque.email
+    name: Parque
   x-logo:
-    url: 'https://redocly.github.io/openapi-template/logo.png'
-  description: >
-    This is an **example** API to demonstrate features of OpenAPI specification
+    url: 'https://i.ibb.co/r5679FD/pulsee-2.png'
 
+  description: >
     # Introduction
 
-    This API definition is intended to to be a good starting point for
-    describing your API in 
-
-    [OpenAPI/Swagger
-    format](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md).
-
-    It also demonstrates features of
-    [create-openapi-repo](https://github.com/Redocly/create-openapi-repo) tool
-    and 
-
-    [Redoc](https://github.com/Redocly/Redoc) documentation engine. So beyond
-    the standard OpenAPI syntax we use a few 
-
-    [vendor
-    extensions](https://github.com/Redocly/Redoc/blob/master/docs/redoc-vendor-extensions.md).
+    This project is a built-in payment method for Pulsee app.
 
 
-    # OpenAPI Specification
+    Thanks to SplittyPay technology it will be possible to split the entire amount of Pulsee invoice
+    among all people involved in Pulsee service (contributors)
+    instead of delegate payment for the entire amount to people who have been registered into Pulsee service contract (account-holder).
 
-    The goal of The OpenAPI Specification is to define a standard,
-    language-agnostic interface to REST APIs which
+    # API
 
-    allows both humans and computers to discover and understand the capabilities
-    of the service without access to source
+    These RESTful API offers all features to handle Customers, their Contracts and relatives Invoices.
 
-    code, documentation, or through network traffic inspection. When properly
-    defined via OpenAPI, a consumer can 
-
-    understand and interact with the remote service with a minimal amount of
-    implementation logic. Similar to what
-
-    interfaces have done for lower-level programming, OpenAPI removes the
-    guesswork in calling the service.
-externalDocs:
-  description: Find out how to create a GitHub repo for your OpenAPI definition.
-  url: 'https://github.com/Rebilly/generator-openapi-repo'
 tags:
-  - name: Echo
-    description: Example echo operations
-  - name: User
-    description: Operations about user
+  - name: Customer
+    description: Everything about Customer
+  - name: Contract
+    description: Everything about Contract
+  - name: Invoice
+    description: Everything about Invoice
+
 servers:
-  - url: 'http://example.com/api/v1'
-  - url: 'https://example.com/api/v1'
+  - url: pulsee.splittypay.it
+
 paths:
-  '/users/{username}':
-    $ref: 'paths/users@{username}.yaml'
-  /echo:
-    $ref: paths/echo.yaml
+  /customers:
+    $ref: './customers/customers.yaml#/paths/~1customers'
+  /customers/{id}:
+    $ref: './customers/customers.yaml#/paths/~1customers~1{id}'
+
+  /contracts:
+    $ref: './contracts/contracts.yaml#/paths/~1contracts'
+  /contracts/{id}:
+    $ref: './contracts/contracts.yaml#/paths/~1contracts~1{id}'
+
+  /invoices:
+    $ref: './invoices/invoice.yaml#/paths/~1invoices'
+  /invoices/{id}:
+    $ref: './invoices/invoice.yaml#/paths/~1invoices~1{id}'
+
 components:
   securitySchemes:
-    main_auth:
+    basic_auth:
       type: oauth2
       flows:
         implicit:
-          authorizationUrl: 'http://example.com/api/oauth/dialog'
+          authorizationUrl: https://example.com/api/oauth/dialog
           scopes:
-            'read:users': read users info
-            'write:users': modify or remove users
+            user: user permission
+            company: company permission
     api_key:
       type: apiKey
       in: header
       name: api_key
-    basic_auth:
-      type: http
-      scheme: basic
